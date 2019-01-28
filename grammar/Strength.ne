@@ -16,9 +16,9 @@ StrengthListEntry ->
 
 Strength ->
     Wattage {% id %}
-  # | Heartrate {% id %}
+  | Heartrate {% id %}
   | FTP_Target {% id %}
-  # | FTHR_Target {% id %}
+  | FTHR_Target {% id %}
 
 @{%
 function strengthValue(n, units) {
