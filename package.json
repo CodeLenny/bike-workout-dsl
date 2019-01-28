@@ -1,0 +1,43 @@
+{
+  "name": "bike-workout-dsl",
+  "version": "0.0.0",
+  "description": "A DSL for creating bike workout plans",
+  "main": "index.js",
+  "scripts": {
+    "test": "jake test && tsc && nyc ava"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeLenny/bike-workout-dsl.git"
+  },
+  "author": "Ryan Leonard (http://ryanleonard.us)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodeLenny/bike-workout-dsl/issues"
+  },
+  "homepage": "https://github.com/CodeLenny/bike-workout-dsl#readme",
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/nearley": "^2.11.0",
+    "@types/node": "^10.12.18",
+    "@types/strip-indent": "^2.0.0",
+    "ava": "^1.1.0",
+    "ava-fast-check": "^1.1.1",
+    "fast-check": "^1.10.0",
+    "jake": "^8.0.19",
+    "nyc": "^13.1.0",
+    "strip-indent": "^2.0.0",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "nearley": "^2.16.0"
+  }
+}

@@ -1,0 +1,13 @@
+stages:
+  - test
+
+unit-test:
+  stage: test
+  image: node:8
+  before_script:
+    - npm install
+  script:
+    - npm test
+  after_script:
+    - npm install codecov
+    - ./node_modules/.bin/codecov
