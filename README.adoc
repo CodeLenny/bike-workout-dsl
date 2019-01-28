@@ -1,0 +1,7 @@
+= structuredworkout: Bike Workout DSL
+:name: structuredworkout
+:toc:
+
+A language for specifying bike workouts.
+Files written in {name} should be easy to read,
+while being concise.
