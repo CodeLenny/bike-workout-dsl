@@ -1,7 +1,7 @@
-= structuredworkout: Bike Workout DSL
-:name: structuredworkout
+= powERGful: Bike Workout DSL
+:name: powERGful
 :toc:
 
-A language for specifying bike workouts.
+A powerful DSL for creating bike workouts that can be compiled to ERG and other workout formats.
 Files written in {name} should be easy to read,
 while being concise.
