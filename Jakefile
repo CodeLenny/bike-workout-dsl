@@ -121,7 +121,7 @@ grammarTemplateFiles.include(
 file("docs/out/grammar/index.html", [
     "docs/src/grammar/index.blade",
     ...grammarTemplateFiles.toArray(),
-    ], { async: true },
+    ],
     () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"));
 
 file("docs/out/index.html", [
