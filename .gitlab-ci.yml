@@ -20,7 +20,7 @@ build-docs:
   before_script:
     - npm install
   script:
-    - node_modules/.bin/jake docs
+    - node_modules/.bin/jake docs --trace
   artifacts:
     paths:
       - docs/out/
