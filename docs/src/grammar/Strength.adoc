@@ -1,0 +1,45 @@
+== StrengthDescription
+
++++
+<div railroad-of="StrengthDescription"></div>
++++
+
+One or more target difficulties, seperated by a slash ("/").
+
+== StrengthListEntry
+
++++
+<div railroad-of="StrengthListEntry"></div>
++++
+
+== Strength
+
++++
+<div railroad-of="Strength"></div>
++++
+
+A single difficulty specification.
+
+== Wattage
+
++++
+<div railroad-of="Wattage"></div>
++++
+
+== Heartrate
+
++++
+<div railroad-of="Heartrate"></div>
++++
+
+== FTP_Target
+
++++
+<div railroad-of="FTP_Target"></div>
++++
+
+== FTHR_Target
+
++++
+<div railroad-of="FTHR_Target"></div>
++++

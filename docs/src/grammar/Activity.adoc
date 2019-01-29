@@ -1,0 +1,75 @@
+== Activity
+
++++
+<div railroad-of="Activity"></div>
++++
+
+A workout at a set difficulty for a set duration.
+Can include a description and dialog messages to display at certain times during the activity.
+
+.Minimal Example
+[source]
+----
+5m at 50W
+----
+
+.Full Example
+[source]
+----
+"Warm up" 10m30s at 50% FTP/60% FTHR
+    @0m "Let's do a nice warm-up."
+    @5m15s "Half-way there!"
+    > This is a nice warm-up to start your exercise with.
+    > Get started with high cadence (80-90).
+----
+
+=== Dialog Messages
+
+Dialog messages are offset from the start of the activity, not from the beginning of the workout.
+
+== ActivityName
+
++++
+<div railroad-of="ActivityName"></div>
++++
+
+A name to give the activity.
+
+== ActivityDialog
+
++++
+<div railroad-of="ActivityDialog"></div>
++++
+
+The list of dialog messages to display during the activity.
+
+== ActivityDialogEntry
+
++++
+<div railroad-of="ActivityDialogEntry"></div>
++++
+
+A message to display at the specified offset (from the start of the activity).
+
+.Dialog Entry Examples
+[source]
+----
+@2m "Keep it up!"
+@5:00 "Five minutes in!"
+----
+
+== ActivityDescription
+
++++
+<div railroad-of="ActivityDescription"></div>
++++
+
+The lines describing the activity.
+
+== ActivityDescriptionLine
+
++++
+<div railroad-of="ActivityDescriptionLine"></div>
++++
+
+A single line to describe the activity.

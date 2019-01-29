@@ -1,6 +1,7 @@
 .nyc_output/
 build/
 coverage/
+docs/out/grammar/
 node_modules/
 *.js
 *.js.map

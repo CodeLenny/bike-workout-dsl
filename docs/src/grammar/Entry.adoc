@@ -1,0 +1,11 @@
+:Workout: link:../Workout/[Workout]
+:Activities: link:../Activity/[Activities]
+
+== Entry
+
++++
+<div railroad-of="Entry"></div>
++++
+
+Each entry in a {Workout}.
+Entries containing {Activities} are in chronological order, so activities later in the file will happen after the earlier activities.

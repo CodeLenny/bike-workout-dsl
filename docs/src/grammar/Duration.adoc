@@ -1,0 +1,49 @@
+== Duration
+
++++
+<div railroad-of="Duration"></div>
++++
+
+A specification of a time duration or offset.
+
+== HoursMinutesSeconds
+
++++
+<div railroad-of="HoursMinutesSeconds"></div>
++++
+
+== MinutesSeconds
+
++++
+<div railroad-of="MinutesSeconds"></div>
++++
+
+== HoursStart
+
++++
+<div railroad-of="HoursStart"></div>
++++
+
+== MinutesStart
+
++++
+<div railroad-of="MinutesStart"></div>
++++
+
+== Hours
+
++++
+<div railroad-of="Hours"></div>
++++
+
+== Minutes
+
++++
+<div railroad-of="Minutes"></div>
++++
+
+== Seconds
+
++++
+<div railroad-of="Seconds"></div>
++++

@@ -1,0 +1,25 @@
+== Metadata
+
++++
+<div railroad-of="Metadata"></div>
++++
+
+A list of valid metadata settings.
+
+== MetadataEntry
+
++++
+<div railroad-of="MetadataEntry"></div>
++++
+
+== MetadataKey
+
++++
+<div railroad-of="MetadataKey"></div>
++++
+
+== MetadataValue
+
++++
+<div railroad-of="MetadataValue"></div>
++++

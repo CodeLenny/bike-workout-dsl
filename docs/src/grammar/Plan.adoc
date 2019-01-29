@@ -1,0 +1,14 @@
+:Workout: link:../Workout/[Workout]
+== Plan
+
++++
+<div railroad-of="Plan"></div>
++++
+
+The entire `.workout` file.  Contains one or more {Workout} entries, seperated by "---".
+
+== PlanSeperation
+
++++
+<div railroad-of="PlanSeperation"></div>
++++

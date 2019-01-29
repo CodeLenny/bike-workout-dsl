@@ -1,0 +1,7 @@
+== Workout
+
++++
+<div railroad-of="Workout"></div>
++++
+
+A continous set of activities to make up a single workout.

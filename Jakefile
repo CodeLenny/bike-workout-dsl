@@ -1,3 +1,9 @@
+const fs = require("fs-extra");
+const cheerio = require("cheerio");
+const blade = require("blade");
+const asciidoctor = require("asciidoctor.js")();
+const nearley = require("nearley");
+
 function nearleyc(source, dest, cb) {
     jake.exec(`node_modules/.bin/nearleyc ${source} > ${dest}`, cb);
 }
@@ -57,6 +63,143 @@ rule(
     },
 );
 
+directory("build/doc/");
+
+rule(
+    /build\/doc\/.*\.html/,
+    function(name) {
+        return name
+            .replace("build/doc/", "docs/src/grammar/")
+            .replace(".html", ".adoc");
+    },
+    { async: true },
+    function() {
+        const src = this.source;
+        const dest = this.name;
+        return fs
+            .ensureDir("build/doc/")
+            .then(() => fs.readFile(src, "utf8"))
+            .then(adoc => asciidoctor.convert(adoc, {
+                header_footer: false,
+            }))
+            .then(html => fs.writeFile(dest, html));
+    },
+);
+
+const grammarTemplateFiles = new jake.FileList();
+grammarTemplateFiles.include(
+    "docs/src/template/core-nav-links.blade",
+    "docs/src/template/extra-nav-links.blade",
+    "docs/src/template/grammar-nav-links.blade",
+    "docs/src/template/grammar.blade",
+);
+
+const grammarDocFiles = new jake.FileList();
+const grammarFiles = new jake.FileList();
+grammarFiles.include("grammar/*.ne");
+grammarFiles
+    .toArray()
+    .forEach(file => {
+        const modelName = file.replace("grammar/", "").replace(".ne", "");
+        const railroad = file
+            .replace("grammar/", "build/railroad/")
+            .replace(".ne", ".html");
+        const doc = file
+            .replace("grammar/", "build/doc/")
+            .replace(".ne", ".html");
+        const output = file
+            .replace("grammar/", "docs/out/grammar/")
+            .replace(".ne", "/index.html");
+        const outDir = output.replace("/index.html", "");
+        grammarDocFiles.include(output);
+
+        directory(outDir);
+
+        task(
+            output,
+            [
+                railroad,
+                doc,
+                ...grammarTemplateFiles.toArray(),
+                outDir,
+                "docs/src/links.json",
+            ],
+            { async: true },
+            function() {
+                const svgLinks = require("./docs/src/links.json");
+                const svgContents = fs
+                    .readFile(railroad, "utf8")
+                    .then(file => cheerio.load(file))
+                    .then($ => {
+                        const svgs = {};
+                        $("h1").each(function(i, elem) {
+                            const name = $(this).text();
+                            const svg = $.html($(this).next().children("svg"));
+                            svgs[name] = svg;
+                        });
+                        return svgs;
+                    });
+                const docContents = fs.readFile(doc, "utf8");
+                return Promise
+                    .all([svgContents, docContents])
+                    .then(([ svgs, documentation ]) => {
+                        return new Promise((resolve, reject) => {
+                            blade.renderFile(
+                                "docs/src/template/grammar.blade",
+                                {
+                                    title: modelName,
+                                },
+                                (err, html) => {
+                                    if(err) {
+                                        reject(err);
+                                    }
+                                    $ = cheerio.load(html, {
+                                        decodeEntities: false,
+                                    });
+                                    $("#documentation").html(documentation);
+                                    $("[railroad-of]").each(function (i, elem) {
+                                        const diagram = $(this).attr("railroad-of");
+                                        $(this).html(svgs[diagram]);
+                                    });
+                                    $("svg text").each(function (i, elem) {
+                                        const name = $(this).text();
+                                        if(svgLinks[name]) {
+                                            $(this).html(`<a href="../${svgLinks[name]}">${name}</a>`);
+                                        }
+                                    });
+                                    resolve($.html());
+                                },
+                            );
+                        });
+                    })
+                    .then(html => fs.writeFile(output, html))
+                    .catch(err => {
+                        console.log(err);
+                        throw err;
+                    });
+            },
+        );
+    });
+
+rule(
+    /docs\/grammar\/.*\/index.html/,
+    function(name) {
+        return name
+            .replace("docs/grammar/", "build/")
+            .replace("/index.html", ".html");
+    },
+    [
+        "build/",
+    ],
+    function() {
+        // read in railroad, split out SVG from CSS
+        // read in (and compile) adoc files
+        // combine HTML & SVG
+        // Add links to other files
+        // Write out
+    },
+);
+
 task("build", [
     "grammar/Plan.js",
 ]);
@@ -69,7 +212,6 @@ task("test", [
     "grammar/Workout.js",
 ]);
 
-// TODO: Eventually these tasks will be triggered by other tasks
-task("temp", [
-    "build/railroad/Activity.html",
+task("docs", [
+    ...grammarDocFiles.toArray(),
 ]);
