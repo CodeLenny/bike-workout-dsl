@@ -81,9 +81,13 @@ rule(
     },
     { async: true },
     function() {
-        jake.exec(`node_modules/.bin/nearley-railroad ${this.source} > ${this.name}`, function() {
-            complete();
+        const railroadDirectoryTask = jake.Task["build/railroad"];
+        railroadDirectoryTask.addListener("complete", function() {
+            jake.exec(`node_modules/.bin/nearley-railroad ${this.source} > ${this.name}`, function() {
+                complete();
+            });
         });
+        railroadDirectoryTask.invoke();
     },
 );
 
