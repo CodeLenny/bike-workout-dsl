@@ -1,0 +1,25 @@
+!!! 5
+html
+  head
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css")
+    link(rel="stylesheet", href="https://gistcdn.githack.com/CodeLenny/a65ffcaaf167d84cd28ee01961ab690c/raw/4c42a016686687d375e9ace9a1b60917a5ac3191/stylesheet.css")
+    script(defer, src="https://code.getmdl.io/1.3.0/material.min.js")
+    block styling
+  body
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      header.mdl-layout__header
+        .mdl-layout__header-row
+          span.mdl-layout-title= title
+          .mdl-layout-spacer
+          // Icons displayed on the right of the header, for applicable screen sizes
+          nav.mdl-navigation
+            include "core-nav-links.blade"
+      .mdl-layout__drawer
+        span.mdl-layout-title= title
+        nav.mdl-navigation
+          include "core-nav-links.blade"
+          include "extra-nav-links.blade"
+      main.mdl-layout__content
+        .page-content
+          block pageContent

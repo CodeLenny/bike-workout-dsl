@@ -24,6 +24,14 @@ function bladeCompilation(source, dest, options = {}) {
     return htmlRender.then(html => fs.writeFile(dest, html));
 }
 
+function sass(dest, source) {
+    return new Promise((resolve, reject) => {
+        jake.exec(`node_modules/.bin/sass ${source} > ${dest}`, function() {
+            resolve();
+        });
+    });
+}
+
 rule(".js", ".ne", {async: true}, function() {
     nearleyc(this.source, this.name, function() {
         complete();
@@ -110,15 +118,17 @@ grammarTemplateFiles.include(
     "docs/src/template/grammar.blade",
 );
 
-file(
-    "docs/out/grammar/index.html",
-    [
-        "docs/src/grammar/index.blade",
-        ...grammarTemplateFiles.toArray(),
-    ],
-    { async: true },
-    () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"),
-);
+file("docs/out/grammar/index.html", [
+    "docs/src/grammar/index.blade",
+    ...grammarTemplateFiles.toArray(),
+    ], { async: true },
+    () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"));
+
+file("docs/out/index.html", [
+    "docs/src/index.blade",
+    "docs/src/template/about-page.blade",
+    ], { async: true },
+    () => bladeCompilation("docs/src/index.blade", "docs/out/index.html"));
 
 const grammarDocFiles = new jake.FileList();
 const grammarFiles = new jake.FileList();
@@ -226,6 +236,11 @@ rule(
     },
 );
 
+file("docs/out/css/site.css", [
+        "docs/src/sass/site.scss",
+    ], { async: true },
+    () => sass("docs/out/css/site.css", "docs/src/sass/site.scss"));
+
 task("build", [
     "grammar/Plan.js",
 ]);
@@ -239,6 +254,8 @@ task("test", [
 ]);
 
 task("docs", [
+    "docs/out/css/site.css",
+    "docs/out/index.html",
     "docs/out/grammar/index.html",
     ...grammarDocFiles.toArray(),
 ]);

@@ -1,6 +1,8 @@
 .nyc_output/
 build/
 coverage/
+docs/out/index.html
+docs/out/css/site.css
 docs/out/grammar/
 node_modules/
 *.js

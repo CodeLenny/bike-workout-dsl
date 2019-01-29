@@ -36,7 +36,9 @@
     "cheerio": "^1.0.0-rc.2",
     "fast-check": "^1.10.0",
     "jake": "^8.0.19",
+    "markdown": "^0.5.0",
     "nyc": "^13.1.0",
+    "sass": "^1.16.1",
     "strip-indent": "^2.0.0",
     "typescript": "^3.2.4"
   },
