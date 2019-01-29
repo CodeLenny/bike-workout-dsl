@@ -118,8 +118,11 @@ grammarTemplateFiles.include(
     "docs/src/template/grammar.blade",
 );
 
+directory("docs/out/grammar/");
+
 file("docs/out/grammar/index.html", [
     "docs/src/grammar/index.blade",
+    "docs/out/grammar/",
     ...grammarTemplateFiles.toArray(),
     ],
     () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"));
