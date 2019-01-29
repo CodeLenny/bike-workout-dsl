@@ -1,5 +1,5 @@
 @builtin "number.ne"
-@builtin "whitespace.ne"
+@include "./utils.ne"
 
 StrengthDescription ->
     StrengthListEntry:* Strength {%
@@ -12,7 +12,7 @@ StrengthDescription ->
     %}
 
 StrengthListEntry ->
-  Strength _ "/" _ {% id %}
+  Strength OptionalWhitespace "/" OptionalWhitespace {% id %}
 
 Strength ->
     Wattage {% id %}
@@ -28,10 +28,10 @@ function strengthValue(n, units) {
 }
 %}
 
-Wattage -> decimal _ "w"i {%  strengthValue(0, "watts") %}
+Wattage -> decimal OptionalWhitespace "w"i {%  strengthValue(0, "watts") %}
 
-Heartrate -> decimal _ "bpm"i {% strengthValue(0, "bpm") %}
+Heartrate -> decimal OptionalWhitespace ("bpm" | "BPM") {% strengthValue(0, "bpm") %}
 
-FTP_Target -> decimal _ "%" _ "ftp"i {% strengthValue(0, "ftp") %}
+FTP_Target -> decimal OptionalWhitespace "%" OptionalWhitespace ("ftp" | "FTP") {% strengthValue(0, "ftp") %}
 
-FTHR_Target -> decimal _ "%" _ "fthr"i {% strengthValue(0, "fthr") %}
+FTHR_Target -> decimal OptionalWhitespace "%" OptionalWhitespace ("fthr" | "FTHR") {% strengthValue(0, "fthr") %}

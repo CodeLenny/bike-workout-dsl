@@ -11,4 +11,4 @@ Plan ->
         }
     %}
 
-PlanSeperation -> _ Linebreak "---" "-":* Linebreak _
+PlanSeperation -> OptionalWhitespace Linebreak "---" "-":* Linebreak OptionalWhitespace

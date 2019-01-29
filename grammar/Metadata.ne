@@ -4,11 +4,11 @@ Metadata ->
     MetadataEntry:+
 
 MetadataEntry ->
-    MetadataKey Whitespace "=" Whitespace MetadataValue Linebreak
+    MetadataKey OptionalWhitespace "=" OptionalWhitespace MetadataValue Linebreak
 
 MetadataKey ->
-    "Name"
-  | "Author"
+    "name" {% id %}
+  | "author" {% id %}
 
 MetadataValue ->
     DoubleQuotedString

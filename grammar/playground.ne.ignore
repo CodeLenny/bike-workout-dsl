@@ -1,0 +1,76 @@
+@builtin "number.ne"
+@builtin "whitespace.ne"
+@builtin "string.ne"
+
+Workout ->
+    Metadata "\n" EntryList {% function(d) { return { metadata: d[0], entries: d[1] }; } %}
+  | Metadata
+  | EntryList
+
+Metadata ->
+    (MetadataEntry "\n"):* MetadataEntry
+
+MetadataEntry ->
+    MetadataKey _ ":" _ MetadataValue {% function(d) {
+	  const obj = {};
+	  obj[d[0]] = d[1];
+      return obj;
+} %}
+
+MetadataKey ->
+    "Name"
+  | "Author"
+
+MetadataValue ->
+    QuotedString
+  | decimal
+
+EntryList ->
+    (Entry DoubleLineBreak):* Entry
+
+Entry ->
+    Name:? __ Duration __ "at"i __ StrengthDescription _ EntryDescription:?
+  | Name:? __ Duration _ EntryDescription:?
+  | "reduce"i __ "by"i __ StrengthDescription _ EntryDescription:?
+
+EntryDescription ->
+    "\n" (EntryDescriptionLine "\n"):+ EntryDescriptionLine
+
+EntryDescriptionLine ->
+    ">" _ QuotedString
+
+Duration ->
+    HoursMinutesSeconds
+  | MinutesSeconds
+  | (unsigned_int _ "h"i) (unsigned_int _ "m"i):? (unsigned_int _ "s"i):?
+  | (unsigned_int _ "h"i):? (unsigned_int _ "m"i) (unsigned_int _ "s"i):?
+  | (unsigned_int _ "h"i):? (unsigned_int _ "m"i):? (unsigned_int _ "s"i)
+
+StrengthDescription ->
+    (_ Strength _ "/" _):* Strength
+
+Strength ->
+    Wattage
+  | Heartrate
+  | FTP_Target
+  | FTHR_Target
+
+Wattage -> decimal _ "w"i
+
+Heartrate -> decimal _ "bpm"i
+
+FTP_Target -> decimal _ "%" _ "FTP"
+
+FTHR_Target -> decimal _ "%" _ "FTHR"
+
+Name -> QuotedString
+
+HoursMinutesSeconds -> unsigned_int ":" unsigned_int ":" unsigned_int
+
+MinutesSeconds -> unsigned_int ":" unsigned_int
+
+DoubleLineBreak -> "\n" "\n":+
+
+QuotedString ->
+    dqstring
+  | sqstring
