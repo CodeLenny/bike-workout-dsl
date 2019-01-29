@@ -8,6 +8,22 @@ function nearleyc(source, dest, cb) {
     jake.exec(`node_modules/.bin/nearleyc ${source} > ${dest}`, cb);
 }
 
+function bladeCompilation(source, dest, options = {}) {
+    const htmlRender = new Promise((resolve, reject) => {
+        blade.renderFile(
+            source,
+            options,
+            (err, html) => {
+                if(err) {
+                    reject(err);
+                }
+                resolve(html);
+            },
+        );
+    });
+    return htmlRender.then(html => fs.writeFile(dest, html));
+}
+
 rule(".js", ".ne", {async: true}, function() {
     nearleyc(this.source, this.name, function() {
         complete();
@@ -92,6 +108,16 @@ grammarTemplateFiles.include(
     "docs/src/template/extra-nav-links.blade",
     "docs/src/template/grammar-nav-links.blade",
     "docs/src/template/grammar.blade",
+);
+
+file(
+    "docs/out/grammar/index.html",
+    [
+        "docs/src/grammar/index.blade",
+        ...grammarTemplateFiles.toArray(),
+    ],
+    { async: true },
+    () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"),
 );
 
 const grammarDocFiles = new jake.FileList();
@@ -213,5 +239,6 @@ task("test", [
 ]);
 
 task("docs", [
+    "docs/out/grammar/index.html",
     ...grammarDocFiles.toArray(),
 ]);

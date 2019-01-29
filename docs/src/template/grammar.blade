@@ -23,4 +23,7 @@ html
           hr
           include "grammar-nav-links.blade"
       main.mdl-layout__content
-        #documentation.page-content
+        .page-content
+          block pageContent
+            #documentation
+              block documentation

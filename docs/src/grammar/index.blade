@@ -1,0 +1,24 @@
+- const name = "powERGful"
+- const title = "Language Docs"
+include "../template/grammar.blade" exposing title
+
+replace block documentation
+  h1 Language Documentation
+  p
+    | Files written in #{name} are designed to be human-readable
+    | and straightforward to write.
+  p
+    | Nearley files contain a workout 
+    a(href="./Plan/") Plan
+    | .  Start there if you are writing a new workout file.
+    br
+    | Plans can contain one or more 
+    a(href="./Workout/") Workout
+    | s, allowing you to include multiple days, weeks, or months of scheduled workouts
+    | in a single file.
+  h2 For Programmers
+  p
+    | If you prefer reading grammar definitions instead of railroad diagrams,
+    | the full grammar source is on 
+    a(href="https://github.com/CodeLenny/bike-workout-dsl/tree/master/grammar") GitHub
+    | .
