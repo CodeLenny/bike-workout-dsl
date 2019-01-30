@@ -81,13 +81,17 @@ rule(
     },
     { async: true },
     function() {
-        const railroadDirectoryTask = jake.Task["build/railroad/"];
-        railroadDirectoryTask.addListener("complete", function() {
-            jake.exec(`node_modules/.bin/nearley-railroad ${this.source} > ${this.name}`, function() {
-                complete();
+        const source = this.source;
+        const dest = this.name;
+        return fs
+            .ensureDir("build/railroad/")
+            .then(() => {
+                return new Promise((resolve, reject) => {
+                    jake.exec(`node_modules/.bin/nearley-railroad ${source} > ${dest}`, function() {
+                        resolve();
+                    });
+                })
             });
-        });
-        railroadDirectoryTask.invoke();
     },
 );
 
