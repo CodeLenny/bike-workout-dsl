@@ -45,4 +45,4 @@ publish-docs-prod:
   dependencies:
     - build-docs
   script:
-    - surge docs/out "dsl.structured.fit" 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
+    - node_modules/.bin/surge docs/out "dsl.structured.fit" 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
