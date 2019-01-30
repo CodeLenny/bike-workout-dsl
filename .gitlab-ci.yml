@@ -35,7 +35,7 @@ publish-docs-devel:
   dependencies:
     - build-docs
   script:
-    - surge docs/out $CI_COMMIT_REF_SLUG-bike-workout-dsl.surge.sh 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
+    - node_modules/.bin/surge docs/out $CI_COMMIT_REF_SLUG-bike-workout-dsl.surge.sh 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
 
 publish-docs-prod:
   stage: publish
