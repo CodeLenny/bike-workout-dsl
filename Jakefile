@@ -81,7 +81,7 @@ rule(
     },
     { async: true },
     function() {
-        const railroadDirectoryTask = jake.Task["build/railroad"];
+        const railroadDirectoryTask = jake.Task["build/railroad/"];
         railroadDirectoryTask.addListener("complete", function() {
             jake.exec(`node_modules/.bin/nearley-railroad ${this.source} > ${this.name}`, function() {
                 complete();
