@@ -3,7 +3,7 @@ import Activity from "./Activity";
 import File from "./File";
 import stripIndent = require("strip-indent");
 import Container from "./Container";
-import ActiveEntry from "./ActiveEntry";
+import ActiveEntry, { createActiveEntry } from "./ActiveEntry";
 
 export default class Workout implements Container {
 
@@ -14,22 +14,13 @@ export default class Workout implements Container {
      */
     private readonly entries: ActiveEntry[];
 
-    private readonly activities: Activity[];
-
     constructor(plan: Plan, workout) {
         this.plan = plan;
-        this.entries = [];
-        this.activities = [];
         // this.metadata = new Metadata(workout.metadata);
+        this.entries = [];
         if(workout.entries && Array.isArray(workout.entries)) {
             for(const entry of workout.entries) {
-                if(Activity.isActivityData(entry)) {
-                    const activity = new Activity(this, entry, this.getLastEntry());
-                    this.entries.push(activity);
-                    this.activities.push(activity);
-                } else {
-                    throw new Error("Unknown entry: " + JSON.stringify(entry));
-                }
+                this.entries.push(createActiveEntry(this, entry, this.getLastEntry()));
             }
         }
     }
@@ -104,7 +95,6 @@ export default class Workout implements Container {
     public toJSON(): object {
         return {
             entries: this.entries.map(entry => entry.toJSON()),
-            activities: this.activities.map(activity => activity.toJSON()),
         };
     }
 

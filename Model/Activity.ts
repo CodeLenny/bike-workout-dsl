@@ -12,7 +12,7 @@ export default class Activity implements Container, ActiveEntry {
         return typeof data === "object" && data.type === "activity";
     }
 
-    private readonly workout: Workout;
+    private readonly parent: Container;
     private readonly lastEntry?: ActiveEntry;
     private readonly name?: string;
     private readonly description?: string;
@@ -20,8 +20,8 @@ export default class Activity implements Container, ActiveEntry {
     private readonly strength: Strength[];
     private readonly dialog: Dialog[];
 
-    constructor(workout: Workout, data, lastEntry?: ActiveEntry) {
-        this.workout = workout;
+    constructor(parent: Container, data, lastEntry?: ActiveEntry) {
+        this.parent = parent;
         this.lastEntry = lastEntry;
         this.name = data.name;
         this.description = data.description;
@@ -40,7 +40,7 @@ export default class Activity implements Container, ActiveEntry {
     }
 
     public getFTP() {
-        return this.workout.getFTP();
+        return this.parent.getFTP();
     }
 
     public getStart(): Duration {
