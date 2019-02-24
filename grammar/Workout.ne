@@ -2,7 +2,7 @@
 @include "./Entry.ne"
 
 Workout ->
-    Metadata:? Entry:* {%
+    Metadata:? EntrySet {%
         function(d) {
             return {
                 metadata: d[0],

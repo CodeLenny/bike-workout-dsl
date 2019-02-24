@@ -1,15 +1,24 @@
 @builtin "string.ne"
-@builtin "whitespace.ne"
 
 DoubleQuotedString -> dqstring {% id %}
 
 SingleQuotedString -> sqstring {% id %}
 
+Linebreaks -> Linebreak:+ {% id %}
+
 Linebreak ->
-    "\r" "\n"
-  | "\r"
-  | "\n"
+    "\r" "\n" {% id %}
+  | "\r" {% id %}
+  | "\n" {% id %}
 
-OptionalWhitespace -> _ {% id %}
+OptionalWhitespace -> WhitespaceChar:* {% id %}
 
-Whitespace -> __ {% id %}
+OptionalWhitespaceLines ->
+    (Linebreak {% id %} | WhitespaceChar {% id %}):* {% id %}
+
+Whitespace -> WhitespaceChar:+ {% id %}
+
+WhitespaceLines ->
+    (Linebreak {% id %} | WhitespaceChar {% id %}):+
+
+WhitespaceChar -> [ \t\v\f] {% id %}

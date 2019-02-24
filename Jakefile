@@ -118,7 +118,10 @@ grammarTemplateFiles.include(
     "docs/src/template/grammar.blade",
 );
 
+directory("docs/out/grammar/");
+
 file("docs/out/grammar/index.html", [
+    "docs/out/grammar/",
     "docs/src/grammar/index.blade",
     ...grammarTemplateFiles.toArray(),
     ], { async: true },
@@ -249,6 +252,7 @@ task("test", [
     "build",
     "grammar/Activity.js",
     "grammar/Duration.js",
+    "grammar/Entry.js",
     "grammar/Strength.js",
     "grammar/Workout.js",
 ]);

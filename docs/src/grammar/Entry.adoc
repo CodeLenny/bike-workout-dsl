@@ -1,5 +1,8 @@
 :Workout: link:../Workout/[Workout]
 :Activities: link:../Activity/[Activities]
+:Entries: link:#_entry[Entries]
+:Entry: link:#_entry[Entry]
+:EntryScope: link:#_entryscope[EntryScope]
 
 == Entry
 
@@ -9,3 +12,20 @@
 
 Each entry in a {Workout}.
 Entries containing {Activities} are in chronological order, so activities later in the file will happen after the earlier activities.
+
+== EntryScope
+
++++
+<div railroad-of="EntryScope"></div>
++++
+
+A block scope of {Entries}.  Can be used alone as an {Entry},
+or used in other structures, like Loops.
+
+== EntrySet
+
++++
+<div railroad-of="EntrySet"></div>
++++
+
+A list of entries, used in {Workout}s and {EntryScope}s.
