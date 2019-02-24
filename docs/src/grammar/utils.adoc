@@ -12,11 +12,21 @@
 <div railroad-of="SingleQuotedString"></div>
 +++
 
+== Linebreaks
+
++++
+<div railroad-of="Linebreaks"></div>
++++
+
+One or more linebreaks, without characters between lines.
+
 == Linebreak
 
 +++
 <div railroad-of="Linebreak"></div>
 +++
+
+A single linebreak.
 
 == OptionalWhitespace
 
@@ -24,8 +34,36 @@
 <div railroad-of="OptionalWhitespace"></div>
 +++
 
+Optional whitespace characters, excluding new lines.
+
+== OptionalWhitespaceLines
+
++++
+<div railroad-of="OptionalWhitespaceLines"></div>
++++
+
+Optional whitespace characters, including new lines.
+
 == Whitespace
 
 +++
 <div railroad-of="Whitespace"></div>
 +++
+
+One or more manditory whitespace characters, excluding new lines.
+
+== WhitespaceLines
+
++++
+<div railroad-of="WhitespaceLines"></div>
++++
+
+One or more manditory whitespace characters, including new lines.
+
+== WhitespaceChar
+
++++
+<div railroad-of="WhitespaceChar"></div>
++++
+
+A single whitespace character, excluding new lines.

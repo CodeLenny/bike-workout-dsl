@@ -14,6 +14,8 @@
     "Minutes": "Duration/#_minutes",
     "Seconds": "Duration/#_seconds",
     "Entry": "Entry/#_entry",
+    "EntryScope": "Entry/#_entryscope",
+    "EntrySet": "Entry/#_entryset",
     "Metadata": "Metadata/#_metadata",
     "MetadataEntry": "Metadata/#_metadataentry",
     "MetadataKey": "Metadata/#_metadatakey",
@@ -29,8 +31,12 @@
     "FTHR_Target": "Strength/#_fthr_target",
     "DoubleQuotedString": "utils/#_doublequotedstring",
     "SingleQuotedString": "utils/#_singlequotedstring",
+    "Linebreaks": "utils/#_linebreaks",
     "Linebreak": "utils/#_linebreak",
     "OptionalWhitespace": "utils/#_optionalwhitespace",
+    "OptionalWhitespaceLines": "utils/#_optionalwhitespacelines",
     "Whitespace": "utils/#_whitespace",
-    "Workout": "Workout/#_workout"
+    "WhitespaceLines": "utils/#_whitespacelines",
+    "WhitespaceChar": "utils/#_whitespacechar",
+    "Workout": "Workout/#_workout",
 }
