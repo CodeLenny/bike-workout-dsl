@@ -60,7 +60,7 @@ const lexer = moo.states({
     // Contents of string literals with double quotes.
     // Double-quoted strings can have variables interpolated.
     dqStringLiteral: {
-        stringEnd: { match: `"`, pop: true },
+        endString: { match: `"`, pop: true },
         startEquation: { match: '${', push: "interpolatedEquation" },
         variable,
         text: { match: /(?:\\"|\\\$|[^"\$\\])+/, lineBreaks: true },
@@ -69,7 +69,7 @@ const lexer = moo.states({
     // Contents of string literals with single quotes.
     // Single-quoted strings cannot have variables interpolated.
     sqStringLiteral: {
-        stringEnd: { match: `'`, pop: true },
+        endString: { match: `'`, pop: true },
         text: { match: /(?:\\'|[^'\\])+/, lineBreaks: true },
     },
 

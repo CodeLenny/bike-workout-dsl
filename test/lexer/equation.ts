@@ -14,7 +14,7 @@ test("can contain strings", t => {
     t.is(lexer.next().type, "startEquation");
     t.is(lexer.next().type, "startString");
     t.is(lexer.next().type, "text");
-    t.is(lexer.next().type, "stringEnd");
+    t.is(lexer.next().type, "endString");
     t.is(lexer.next().type, "endEquation");
     t.is(lexer.next(), undefined);
 });
