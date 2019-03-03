@@ -1,11 +1,14 @@
 import test from "ava";
 import * as nearley from "nearley";
-import * as Activity from "../../../grammar/Activity";
+import * as Plan from "../../../grammar/Plan";
 const stripIndent = require("strip-indent");
+
+const Activity = nearley.Grammar.fromCompiled(Plan);
+Activity.start = "Activity";
 
 test("parses minimal activity", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Activity));
+    const parser = new nearley.Parser(Activity);
     parser.feed("5m at 20W\n");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0], {
@@ -26,7 +29,7 @@ test("parses minimal activity", t => {
 
 test("parses activity name", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Activity));
+    const parser = new nearley.Parser(Activity);
     parser.feed("\"Test Activity 5\" 5m at 20W\n");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0].name, [ { type: "text", value: "Test Activity 5" }]);
@@ -34,7 +37,7 @@ test("parses activity name", t => {
 
 test("parses dialog", t => {
     t.plan(4);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Activity));
+    const parser = new nearley.Parser(Activity);
     parser.feed(stripIndent(`
         5m at 20W
         @2m "Keep it up!"
@@ -50,7 +53,7 @@ test("parses dialog", t => {
 
 test("parses description", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Activity));
+    const parser = new nearley.Parser(Activity);
     parser.feed(stripIndent(`
         5m at 20W
         > "This is a very easy activity."
@@ -61,7 +64,7 @@ test("parses description", t => {
 
 test("parses complete activity", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Activity));
+    const parser = new nearley.Parser(Activity);
     parser.feed(stripIndent(`
         "Long Activity!" 1:30:00 at 300W/250 BPM/75% FTP
           @10m "You're just getting started"

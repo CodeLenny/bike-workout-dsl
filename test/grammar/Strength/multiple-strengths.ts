@@ -1,10 +1,13 @@
 import test from "ava";
 import * as nearley from "nearley";
-import * as Strength from "../../../grammar/Strength";
+import * as Plan from "../../../grammar/Plan";
+
+const StrengthDescription = nearley.Grammar.fromCompiled(Plan);
+StrengthDescription.start = "StrengthDescription";
 
 test("parses two values", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Strength));
+    const parser = new nearley.Parser(StrengthDescription);
     parser.feed("5W / 3.2 bpm");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0], [
@@ -15,7 +18,7 @@ test("parses two values", t => {
 
 test("parses duplicate units", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Strength));
+    const parser = new nearley.Parser(StrengthDescription);
     parser.feed("5W / 3.2 w");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0], [
@@ -26,7 +29,7 @@ test("parses duplicate units", t => {
 
 test("parses 3 values", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Strength));
+    const parser = new nearley.Parser(StrengthDescription);
     parser.feed("5W / 3.2 bpm / 20% FTP");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0], [
@@ -38,7 +41,7 @@ test("parses 3 values", t => {
 
 test("parses all values", t => {
     t.plan(2);
-    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(Strength));
+    const parser = new nearley.Parser(StrengthDescription);
     parser.feed("5W / 3.2 bpm / 20% FTP / 30.82 % FTHR");
     t.is(parser.results.length, 1);
     t.deepEqual(parser.results[0], [
