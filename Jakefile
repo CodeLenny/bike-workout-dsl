@@ -38,7 +38,7 @@ rule(".js", ".ne", {async: true}, function() {
     });
 });
 
-const ActivityDeps = [ "grammar/Duration.ne", "grammar/Strength.ne", "grammar/utils.ne" ];
+const ActivityDeps = [ "grammar/Duration.ne", "grammar/Strength.ne", "grammar/whitespace.ne", "grammar/string.ne" ];
 
 file("grammar/Activity.js", [ ...ActivityDeps ], { async: true }, function() {
     nearleyc("grammar/Activity.ne", this.name, function() {

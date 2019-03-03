@@ -1,5 +1,9 @@
-@builtin "number.ne"
-@include "./utils.ne"
+@include "./Equation.ne"
+@include "./number.ne"
+@include "./whitespace.ne"
+@include "./lexer.ne"
+
+@lexer lex
 
 StrengthDescription ->
     StrengthListEntry:* Strength {%
@@ -12,7 +16,7 @@ StrengthDescription ->
     %}
 
 StrengthListEntry ->
-  Strength OptionalWhitespace "/" OptionalWhitespace {% id %}
+  Strength OptionalWhitespace %divide OptionalWhitespace {% id %}
 
 Strength ->
     Wattage {% id %}
@@ -23,15 +27,25 @@ Strength ->
 @{%
 function strengthValue(n, units) {
     return function(d) {
-        return { value: d[n], units };
+        const obj = d[n];
+        obj.units = units;
+        return obj;
     };
 }
 %}
 
-Wattage -> decimal OptionalWhitespace "w"i {%  strengthValue(0, "watts") %}
+Wattage -> StrengthValue OptionalWhitespace "w"i {%  strengthValue(0, "watts") %}
 
-Heartrate -> decimal OptionalWhitespace ("bpm" | "BPM") {% strengthValue(0, "bpm") %}
+Heartrate -> StrengthValue OptionalWhitespace ("bpm" | "BPM") {% strengthValue(0, "bpm") %}
 
-FTP_Target -> decimal OptionalWhitespace "%" OptionalWhitespace ("ftp" | "FTP") {% strengthValue(0, "ftp") %}
+FTP_Target -> StrengthValue OptionalWhitespace ("% ftp" | "% FTP") {% strengthValue(0, "ftp") %}
 
-FTHR_Target -> decimal OptionalWhitespace "%" OptionalWhitespace ("fthr" | "FTHR") {% strengthValue(0, "fthr") %}
+FTHR_Target -> StrengthValue OptionalWhitespace ("% fthr" | "% FTHR") {% strengthValue(0, "fthr") %}
+
+StrengthValue ->
+    Number {% function(d) {
+        return { type: "number", value: d[0] };
+    } %}
+  | %startEquation Equation %endEquation {% function(d) {
+        return { type: "equation", value: d[1] };
+    } %}

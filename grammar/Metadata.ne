@@ -1,16 +1,19 @@
-@include "./utils.ne"
+@include "./string.ne"
+@include "./whitespace.ne"
+@include "./lexer.ne"
+
+@lexer lex
 
 Metadata ->
     MetadataEntry:+
 
 MetadataEntry ->
-    MetadataKey OptionalWhitespace "=" OptionalWhitespace MetadataValue Linebreak
+    MetadataKey OptionalWhitespace %equals OptionalWhitespace MetadataValue Linebreak
 
 MetadataKey ->
     "name" {% id %}
   | "author" {% id %}
 
 MetadataValue ->
-    DoubleQuotedString
-  | SingleQuotedString
+    InterpolatedString
   | Integer

@@ -1,5 +1,8 @@
-@include "./utils.ne"
 @include "./Workout.ne"
+@include "./whitespace.ne"
+@include "./lexer.ne"
+
+@lexer lex
 
 Plan ->
     (Workout PlanSeperation {% id %}):* Workout {%
@@ -11,4 +14,4 @@ Plan ->
         }
     %}
 
-PlanSeperation -> OptionalWhitespace Linebreak "---" "-":* Linebreak OptionalWhitespace
+PlanSeperation -> OptionalWhitespace %minusDivider Linebreak OptionalWhitespaceLines

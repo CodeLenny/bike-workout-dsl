@@ -1,11 +1,11 @@
-@builtin "string.ne"
 @builtin "postprocessors.ne"
-@include "./utils.ne"
 @include "./Duration.ne"
 @include "./Strength.ne"
+@include "./whitespace.ne"
+@include "./string.ne"
 
 Activity ->
-    (ActivityName Whitespace {% id %}):? Duration Whitespace ("at" | "AT") Whitespace StrengthDescription OptionalWhitespace ActivityDialog:? ActivityDescription:? Linebreak {%
+    (ActivityName Whitespace {% id %}):? Duration Whitespace ("at" | "AT") Whitespace StrengthDescription OptionalWhitespace ActivityDialog:? ActivityDescription:? Linebreak:+ {%
       function(d) {
         return {
             type: "activity",
@@ -13,18 +13,18 @@ Activity ->
             duration: d[1],
             strength: d[5],
             dialog: Array.isArray(d[7]) ? d[7] : [],
-            description: typeof d[8] === "string" ? d[8] : "",
+            description: Array.isArray(d[8]) ? [].concat(...d[8]) : [],
         };
       }
     %}
 
-ActivityName -> DoubleQuotedString {% id %}
+ActivityName -> InterpolatedString {% id %}
 
 ActivityDialog ->
     ActivityDialogEntry:+ {% id %}
 
 ActivityDialogEntry ->
-    Linebreak OptionalWhitespace "@" OptionalWhitespace Duration Whitespace DoubleQuotedString OptionalWhitespace {%
+    Linebreak OptionalWhitespace "@" OptionalWhitespace Duration Whitespace InterpolatedString OptionalWhitespace {%
         function(d) {
             return {
                 message: d[6],
@@ -34,11 +34,7 @@ ActivityDialogEntry ->
     %}
 
 ActivityDescription ->
-    ActivityDescriptionLine:+ {%
-      function(d) {
-          return d[0].join("\n");
-      }
-    %}
+    ActivityDescriptionLine:+ {% id %}
 
 ActivityDescriptionLine ->
-    Linebreak OptionalWhitespace ">" Whitespace DoubleQuotedString OptionalWhitespace {% nth(4) %}
+    Linebreak OptionalWhitespace ">" Whitespace InterpolatedString OptionalWhitespace {% nth(4) %}

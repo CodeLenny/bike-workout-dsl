@@ -2,7 +2,7 @@ const moo = require("moo");
 
 const ws = /[ \t\v\f]+/;
 const variableIdentifier = "[a-zA-Z0-9_]+";
-const variableInstance = "$" + variableIdentifier;
+const variableInstance = "\\$" + variableIdentifier;
 const variable = new RegExp(variableInstance);
 const startString = [
     { match: `"`, push: "dqStringLiteral" },
@@ -46,12 +46,15 @@ const lexer = moo.states({
             "W", "w",
             "H", "h",
             "M", "m",
-            "S", "S",
+            "S", "s",
         ],
         colon: ":",
         at: "@",
         equals: "=",
         gt: ">",
+        divide,
+        startScope: "{",
+        endScope: "}",
         minusDivider: /---+/,
         equalsDivider: /===+/,
         nl,

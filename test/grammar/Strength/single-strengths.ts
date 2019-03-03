@@ -38,6 +38,8 @@ test("parses wattage value", parsesValue, "5W", 5);
 
 test("parses watts cases-insensitvely", parsesUnits, "5w", "watts");
 
-test("handles decimals", parsesValue, "5.5 W", 5.5);
+test("handles decimals", parsesValue, "5.5W", 5.5);
+
+test("handles spaces", parsesValue, "5 W", 5);
 
 test("parses bpm", parsesUnits, "5bpm", "bpm");

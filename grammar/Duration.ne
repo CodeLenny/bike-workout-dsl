@@ -1,5 +1,8 @@
-@builtin "number.ne"
-@include "./utils.ne"
+@include "./number.ne"
+@include "./whitespace.ne"
+@include "./lexer.ne"
+
+@lexer lex
 
 @{%
 function durationHMS(d) {
@@ -18,9 +21,9 @@ Duration ->
   | MinutesStart {% id %}
   | Seconds {% id %}
 
-HoursMinutesSeconds -> unsigned_int ":" unsigned_int ":" unsigned_int {% durationHMS %}
+HoursMinutesSeconds -> unsigned_int %colon unsigned_int %colon unsigned_int {% durationHMS %}
 
-MinutesSeconds -> unsigned_int ":" unsigned_int {%
+MinutesSeconds -> unsigned_int %colon unsigned_int {%
   function(d) {
     return { hours: 0, minutes: d[0], seconds: d[2] };
   }
