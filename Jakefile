@@ -38,33 +38,10 @@ rule(".js", ".ne", {async: true}, function() {
     });
 });
 
-const ActivityDeps = [ "grammar/Duration.ne", "grammar/Strength.ne", "grammar/whitespace.ne", "grammar/string.ne" ];
+const grammarFiles = new jake.FileList();
+grammarFiles.include("grammar/*.ne");
 
-file("grammar/Activity.js", [ ...ActivityDeps ], { async: true }, function() {
-    nearleyc("grammar/Activity.ne", this.name, function() {
-        complete();
-    });
-});
-
-const EntryDeps = [ "grammar/Entry.ne", ...ActivityDeps ];
-
-file("grammar/Entry.js", [ ...EntryDeps ], { async: true }, function() {
-    nearleyc("grammar/Entry.ne", this.name, function() {
-        complete();
-    });
-});
-
-const WorkoutDeps = [ "grammar/Workout.ne", "grammar/Metadata.ne", ...EntryDeps ];
-
-file("grammar/Workout.js", [ ...WorkoutDeps ], { async: true }, function() {
-    nearleyc("grammar/Workout.ne", this.name, function() {
-        complete();
-    });
-});
-
-const PlanDeps = [ "grammar/Plan.ne", ...WorkoutDeps ];
-
-file("grammar/Plan.js", [ ...PlanDeps ], { async: true }, function() {
+file("grammar/Plan.js", [ ...grammarFiles.toArray() ], { async: true }, function() {
     nearleyc("grammar/Plan.ne", this.name, function() {
         complete();
     });
@@ -131,8 +108,6 @@ file("docs/out/index.html", [
     () => bladeCompilation("docs/src/index.blade", "docs/out/index.html"));
 
 const grammarDocFiles = new jake.FileList();
-const grammarFiles = new jake.FileList();
-grammarFiles.include("grammar/*.ne");
 grammarFiles
     .toArray()
     .forEach(file => {
@@ -247,10 +222,6 @@ task("build", [
 
 task("test", [
     "build",
-    "grammar/Activity.js",
-    "grammar/Duration.js",
-    "grammar/Strength.js",
-    "grammar/Workout.js",
 ]);
 
 task("docs", [
