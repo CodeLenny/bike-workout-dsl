@@ -1,14 +1,17 @@
 import Workout from "./Workout";
 import File from "./File";
+import VariableScope from "./VariableScope";
+import Container from "./Container";
 
 export interface PlanOptions {
     ftp?: number;
 }
 
-export default class Plan {
+export default class Plan implements Container {
 
     private readonly options: PlanOptions;
     private readonly workouts: Workout[];
+    private readonly variables: VariableScope;
 
     constructor(options: PlanOptions, plan: object) {
         this.options = options;
@@ -26,6 +29,14 @@ export default class Plan {
         } else {
             return 0;
         }
+    }
+
+    public getVariables(): VariableScope {
+        return this.variables;
+    }
+
+    public compileVariables() {
+        this.workouts.map(workout => workout.compileVariables());
     }
 
     public toErg(): File[] {

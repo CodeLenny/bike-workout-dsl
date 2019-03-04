@@ -1,4 +1,5 @@
 import Container from "./Container";
+import Equation, { NumericEquation } from "./Equation";
 
 export class StrengthType {
 
@@ -23,12 +24,12 @@ export default class Strength {
 
     private readonly parent: Container;
     private readonly units: string;
-    private readonly value: number;
+    private readonly value: Equation;
 
     constructor(parent: Container, data) {
         this.parent = parent;
         this.units = data.units;
-        this.value = data.value;
+        this.value = Equation.createEquation(parent, data);
     }
 
     public hasWatts(): boolean {
@@ -37,9 +38,9 @@ export default class Strength {
 
     public getWatts(): number {
         if(this.units === StrengthType.WATTS.getId()) {
-            return this.value;
+            return this.value.getNumericalValue();
         } else if(this.units === StrengthType.FTP.getId()) {
-            return this.parent.getFTP() * this.value / 100;
+            return this.parent.getFTP() * this.value.getNumericalValue() / 100;
         } else {
             throw new TypeError(`Unit ${this.units} doesn't have a wattage.`);
         }
