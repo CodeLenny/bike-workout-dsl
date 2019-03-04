@@ -2,6 +2,9 @@
 :name: powERGful
 :toc:
 
+image:https://gitlab.com/CodeLenny/bike-workout-dsl/badges/master/pipeline.svg[link="https://gitlab.com/CodeLenny/bike-workout-dsl/commits/master",title="pipeline status"]
+image:https://codecov.io/gh/CodeLenny/bike-workout-dsl/branch/master/graph/badge.svg[link="https://codecov.io/gh/CodeLenny/bike-workout-dsl",title="code coverage"]
+
 A powerful DSL for creating bike workouts that can be compiled to ERG and other workout formats.
 Files written in {name} should be easy to read,
 while being concise.
