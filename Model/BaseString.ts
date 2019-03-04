@@ -1,7 +1,3 @@
-import VariableReference from "./VariableReference";
-import InterpolatedString from "./InterpolatedString";
-import Equation from "./Equation";
-
 /**
  * Base class to represent interpolated and plain strings.
  */
@@ -47,39 +43,6 @@ export class StringTextContent extends StringContent {
 
     getText(): string {
         return this.text;
-    }
-
-}
-
-/**
- * A variable referenced in a string.
- */
-export class StringVariableContent extends StringContent {
-
-    private readonly string: InterpolatedString;
-    private readonly variable: VariableReference;
-
-    constructor(parent: InterpolatedString, contents: object) {
-        super();
-        this.string = parent;
-        this.variable = new VariableReference(contents);
-    }
-
-    getText(): string {
-        throw new ReferenceError("Variable interpolation in strings is not yet supported.");
-    }
-
-}
-
-export class StringEquationContent extends StringContent {
-
-    private readonly string: InterpolatedString;
-    private readonly equation: Equation;
-
-    constructor(parent: InterpolatedString, contents: object) {
-        super();
-        this.string = parent;
-        this.equation = Equation.createEquation(parent, contents["value"]);
     }
 
 }

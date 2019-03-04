@@ -1,5 +1,7 @@
-import BaseString, { StringTextContent, StringVariableContent, StringEquationContent } from "./BaseString";
+import BaseString, { StringTextContent, StringContent } from "./BaseString";
 import Container from "./Container";
+import VariableReference from "./VariableReference";
+import Equation from "./Equation";
 
 export type InterpolatedStringContents = StringTextContent | StringVariableContent | StringEquationContent;
 
@@ -23,12 +25,18 @@ export default class InterpolatedString extends BaseString<InterpolatedStringCon
                     break;
                 case "variable":
                     this.contents.push(new StringVariableContent(this, content));
+                    break;
                 case "equation":
                     this.contents.push(new StringEquationContent(this, content));
+                    break;
                 default:
                     throw new TypeError("Unknown interpolated string type: " + content.type);
             }
         }
+    }
+
+    public getText(): string {
+        return this.contents.map(content => content.getText()).join("");
     }
 
     public getFTP(): number {
@@ -41,6 +49,41 @@ export default class InterpolatedString extends BaseString<InterpolatedStringCon
 
     public getVariables() {
         return this.parent.getVariables();
+    }
+
+}
+
+/**
+ * A variable referenced in a string.
+ */
+export class StringVariableContent extends StringContent {
+
+    private readonly string: InterpolatedString;
+    private readonly variable: VariableReference;
+
+    constructor(parent: InterpolatedString, contents: object) {
+        super();
+        this.string = parent;
+        this.variable = new VariableReference(contents);
+    }
+
+    getText(): string {
+        return this.string.getVariables().getStringValue(this.variable);
+    }
+
+}
+
+export class StringEquationContent extends StringContent {
+
+    private readonly equation: Equation;
+
+    constructor(parent: InterpolatedString, contents: object) {
+        super();
+        this.equation = Equation.createEquation(parent, contents["value"]);
+    }
+
+    getText(): string {
+        return this.equation.getStringValue();
     }
 
 }

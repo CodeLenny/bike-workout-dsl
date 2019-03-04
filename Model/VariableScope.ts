@@ -8,26 +8,25 @@ import { createSome, createNone, Option } from "option-t";
 export default class VariableScope {
 
     private readonly variables: Map<string, string|number>;
-    private readonly parent?: Container;
+    private readonly parent?: Container | VariableScope;
 
-    public constructor(parent?: Container) {
+    public constructor(parent?: Container | VariableScope) {
         this.parent = parent;
         this.variables = new Map();
     }
 
     public variableDefined(variable: VariableReference): boolean {
         return this.variables.has(variable.getName())
-            || (this.parent && this.parent.getVariables().variableDefined(variable));
+            || this.getParentScope().map(scope => scope.variableDefined(variable)).unwrapOr(false);
     }
 
     public getDefinedScope(variable: VariableReference): Option<VariableScope> {
         if(this.variables.has(variable.getName())) {
             return createSome(this);
         }
-        if(!this.parent) {
-            return createNone();
-        }
-        return this.parent.getVariables().getDefinedScope(variable);
+        return this
+            .getParentScope()
+            .flatMap(scope => scope.getDefinedScope(variable));
     }
 
     public setNumericValue(variable: VariableReference, value: number) {
@@ -65,6 +64,15 @@ export default class VariableScope {
         }
         const value = scope.unwrap().variables.get(variable.getName());
         return "" + value;
+    }
+
+    private getParentScope(): Option<VariableScope> {
+        if(!this.parent) {
+            return createNone();
+        } else if(this.parent instanceof VariableScope) {
+            return createSome(this.parent);
+        }
+        return createSome(this.parent.getVariables());
     }
 
 }
