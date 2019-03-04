@@ -9,6 +9,21 @@ A powerful DSL for creating bike workouts that can be compiled to ERG and other 
 Files written in {name} should be easy to read,
 while being concise.
 
+== Example
+
+.Basic Example
+[source]
+----
+"Warm up" 5m at 75% FTP / 60% FTHR
+  @0m "5 minute warmup!"
+> "Get your legs spinning with a 5 minute warm up."
+
+"Work" 10m at 100% FTP / 100% FTHR
+  @0m "10 minutes of 100% FTP to get going!"
+  @1m "Make sure you're in a good cadence."
+  @9:00 "Finish strong!"
+----
+
 == Status
 
 {name} is in a pre-beta state.  This means that there are still rough edges,
