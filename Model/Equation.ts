@@ -97,7 +97,7 @@ export class VariableEquation extends Equation {
 
     constructor(parent: Container, contents: object) {
         super(parent);
-        this.variable = new VariableReference(contents["value"]);
+        this.variable = new VariableReference(contents);
     }
 
     getStringValue(): string {
