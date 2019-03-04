@@ -5,6 +5,8 @@
 
 "Go even harder!" 10m at 150% FTP
 
+"Go a complex power amount" 10m at (100 + (5 * 10))% FTP
+
 --------
 
 "Second day" 5m at 70% FTP

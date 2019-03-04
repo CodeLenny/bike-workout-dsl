@@ -1,6 +1,9 @@
 import anyTest, { Macro, TestInterface } from "ava";
 import * as nearley from "nearley";
-import * as Duration from "../../../grammar/Duration";
+import * as Plan from "../../../grammar/Plan";
+
+const Duration = nearley.Grammar.fromCompiled(Plan);
+Duration.start = "Duration";
 
 interface Context {
     parser: nearley.Parser;
@@ -15,7 +18,7 @@ interface DurationData {
 const test = anyTest as TestInterface<Context>;
 
 test.beforeEach(t => {
-    t.context.parser = new nearley.Parser(nearley.Grammar.fromCompiled(Duration));
+    t.context.parser = new nearley.Parser(Duration);
 });
 
 const parsesTime: Macro<[string, DurationData], Context> = (t, provided, expectedDuration) => {

@@ -1,0 +1,40 @@
+:InterpolatedString: link:./#_interpolatedstring[InterpolatedString]
+:PlainString: link:./#_plainstring[PlainString]
+
+== InterpolatedString
+
++++
+<div railroad-of="InterpolatedString"></div>
++++
+
+A string that can contain variables or interpolated equations.  This will match both single and double-quoted strings, but you must use double-quoted strings if you want to interpolate values.
+
+Examples: `"test"`, `'test'`, `"test's"`, `'hello "Bob", welcome!'`, `"Hello $name"`, `"This is \$\{name\}'s"`, `"The answer is ${5 + 5}"`.
+
+However, you can't use interpolation with single-quoted strings.  These will fail to compile: `'Hi $name'`, `'$\{5 + 5\}'`.
+
+== InterpolatedStringContents
+
++++
+<div railroad-of="InterpolatedStringContents"></div>
++++
+
+The specific values that are allowed inside an {InterpolatedString}.
+
+== PlainString
+
++++
+<div railroad-of="PlainString"></div>
++++
+
+A string that can only contain text.  May use either single or double-quoted strings, but you can not use interpolation.
+
+Examples: `"hello world"`, `'this is text'`.
+
+== PlainStringContents
+
++++
+<div railroad-of="PlainStringContents"></div>
++++
+
+The specific values that are allowed inside a {PlainString}.

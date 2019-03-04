@@ -1,0 +1,41 @@
+== WhitespaceLines
+
++++
+<div railroad-of="WhitespaceLines"></div>
++++
+
+Any mix of whitespace characters and linebreaks, with at least one character.
+
+== Whitespace
+
++++
+<div railroad-of="Whitespace"></div>
++++
+
+Any sequence of whitespace characters (omitting linebreaks
+with at least one character.
+
+== OptionalWhitespace
+
++++
+<div railroad-of="OptionalWhitespace"></div>
++++
+
+Any sequence of whitespace characters (omitting linebreaks), or nothing at all.
+
+== OptionalWhitespaceLines
+
++++
+<div railroad-of="OptionalWhitespaceLines"></div>
++++
+
+Any sequence of whitespace characters and linebreaks,
+or nothing at all.
+
+== Linebreak
+
++++
+<div railroad-of="Linebreak"></div>
++++
+
+A single linebreak character.

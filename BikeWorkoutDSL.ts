@@ -18,6 +18,7 @@ export class BikeWorkoutDSL {
             throw new Error("Ambiguous: parser returned multiple results.");
         }
         this.plan = new Plan(options, parser.results[0]);
+        this.plan.compileVariables();
     }
 
     public getSource() {

@@ -5,6 +5,8 @@ import Strength from "./Strength";
 import Dialog from "./Dialog";
 import ActiveEntry from "./ActiveEntry";
 import stripIndent = require("strip-indent");
+import VariableScope from "./VariableScope";
+import InterpolatedString from "./InterpolatedString";
 
 export default class Activity implements Container, ActiveEntry {
 
@@ -14,17 +16,19 @@ export default class Activity implements Container, ActiveEntry {
 
     private readonly workout: Workout;
     private readonly lastEntry?: ActiveEntry;
-    private readonly name?: string;
-    private readonly description?: string;
+    private readonly name?: InterpolatedString;
+    private readonly description?: InterpolatedString;
     private readonly duration: Duration;
     private readonly strength: Strength[];
     private readonly dialog: Dialog[];
+    private readonly variables: VariableScope;
 
     constructor(workout: Workout, data, lastEntry?: ActiveEntry) {
         this.workout = workout;
+        this.variables = new VariableScope(workout);
         this.lastEntry = lastEntry;
-        this.name = data.name;
-        this.description = data.description;
+        this.name = new InterpolatedString(this, data.name);
+        this.description = new InterpolatedString(this, data.description);
         this.duration = new Duration(this, data.duration);
         if(typeof data.strength === "object" && Array.isArray(data.strength)) {
             this.strength = data.strength.map(strength => new Strength(this, strength));
@@ -36,11 +40,19 @@ export default class Activity implements Container, ActiveEntry {
 
     public getName(): string {
         // TODO: If name not set, count activities in the workout.
-        return this.name;
+        return this.name.getText();
     }
 
     public getFTP() {
         return this.workout.getFTP();
+    }
+
+    public compileVariables() {
+        return;
+    }
+
+    public getVariables(): VariableScope {
+        return this.variables;
     }
 
     public getStart(): Duration {

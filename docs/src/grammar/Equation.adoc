@@ -1,0 +1,27 @@
+:Numbers: link:../number/#_number[Numbers]
+:Strings: link:../string/#_interpolatedstring[Strings]
+:Variables: link:../variable/#_variable[Variables]
+== Equation
+
++++
+<div railroad-of="Equation"></div>
++++
+
+A numeric equation to use for values.
+Sub-equations can be surrounded in parenthesis.
+
+Order of operations must be explicit with parenthesis,
+e.g. `2 * (5 * 10)`.  Invalid: `2 * 5 * 10`.
+
+Values may be {Numbers}, {Strings}, {Variables}, sub-equations,
+or the combination of sub-equations with an operator (`+`, `-`, `*`, `\/`).
+
+Addition can be used to combine strings and numbers:
+any addition that involves a string and a number will be cast to a string: `2 + "5"` will produce `"25"`.
+No other operation other than addition can be used with strings.
+
+.String Example
+[source]
+----
+("Hello " + $name) + ", welcome!"
+----

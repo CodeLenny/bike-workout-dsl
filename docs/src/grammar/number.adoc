@@ -1,0 +1,55 @@
+== Number
+
++++
+<div railroad-of="Number"></div>
++++
+
+An exact number of any format.
+
+== int
+
++++
+<div railroad-of="int"></div>
++++
+
+A positive or negative integer.
+
+== float
+
++++
+<div railroad-of="float"></div>
++++
+
+A positive or negative fractional number, with a decimal.
+
+== unsigned_int
+
++++
+<div railroad-of="unsigned_int"></div>
++++
+
+A positive integer, e.g. `15`, `5`, `1000`.
+
+== negative_int
+
++++
+<div railroad-of="negative_int"></div>
++++
+
+A negative integer, e.g. `-15`, `-5`, `-1000`.
+
+== unsigned_float
+
++++
+<div railroad-of="unsigned_float"></div>
++++
+
+An positive float, e.g. `15.5`, `.5`, `10.`.
+
+== negative_float
+
++++
+<div railroad-of="negative_float"></div>
++++
+
+A negative float, e.g. `-15.5`, `-.5`, `-10.`.

@@ -1,6 +1,9 @@
 import anyTest, { Macro, TestInterface } from "ava";
 import * as nearley from "nearley";
-import * as Strength from "../../../grammar/Strength";
+import * as Plan from "../../../grammar/Plan";
+
+const StrengthDescription = nearley.Grammar.fromCompiled(Plan);
+StrengthDescription.start = "StrengthDescription";
 
 interface Context {
     parser: nearley.Parser,
@@ -9,7 +12,7 @@ interface Context {
 const test = anyTest as TestInterface<Context>;
 
 test.beforeEach(t => {
-    t.context.parser = new nearley.Parser(nearley.Grammar.fromCompiled(Strength));
+    t.context.parser = new nearley.Parser(StrengthDescription);
 });
 
 const parsesUnits: Macro<[string, string], Context> = (t, str, expectedUnit) => {
@@ -38,6 +41,8 @@ test("parses wattage value", parsesValue, "5W", 5);
 
 test("parses watts cases-insensitvely", parsesUnits, "5w", "watts");
 
-test("handles decimals", parsesValue, "5.5 W", 5.5);
+test("handles decimals", parsesValue, "5.5W", 5.5);
+
+test("handles spaces", parsesValue, "5 W", 5);
 
 test("parses bpm", parsesUnits, "5bpm", "bpm");

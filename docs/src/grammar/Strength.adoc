@@ -43,3 +43,11 @@ A single difficulty specification.
 +++
 <div railroad-of="FTHR_Target"></div>
 +++
+
+== StrengthValue
+
++++
+<div railroad-of="StrengthValue"></div>
++++
+
+An exact value or equation to compute the value for a strength.

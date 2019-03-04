@@ -1,0 +1,7 @@
+== Variable
+
++++
+<div railroad-of="Variable"></div>
++++
+
+The name of a variable, prefixed with `\$`, e.g. `$name`.

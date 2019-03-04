@@ -4,6 +4,7 @@ import File from "./File";
 import stripIndent = require("strip-indent");
 import Container from "./Container";
 import ActiveEntry from "./ActiveEntry";
+import VariableScope from "./VariableScope";
 
 export default class Workout implements Container {
 
@@ -16,10 +17,13 @@ export default class Workout implements Container {
 
     private readonly activities: Activity[];
 
+    private readonly variables: VariableScope;
+
     constructor(plan: Plan, workout) {
         this.plan = plan;
         this.entries = [];
         this.activities = [];
+        this.variables = new VariableScope(plan);
         // this.metadata = new Metadata(workout.metadata);
         if(workout.entries && Array.isArray(workout.entries)) {
             for(const entry of workout.entries) {
@@ -53,6 +57,17 @@ export default class Workout implements Container {
 
     public getFTP(): number {
         return this.plan.getFTP();
+    }
+
+    public compileVariables() {
+        for(const entry of this.entries) {
+            // TODO: If variable definition, set variable
+            // TODO: If loop, call compileVariables
+        }
+    }
+
+    public getVariables() {
+        return this.variables;
     }
 
     private getCourseData(): string {
