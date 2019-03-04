@@ -110,6 +110,7 @@ file("docs/out/index.html", [
 const grammarDocFiles = new jake.FileList();
 grammarFiles
     .toArray()
+    .filter(file => !["grammar/lexer.ne"].includes(file))
     .forEach(file => {
         const modelName = file.replace("grammar/", "").replace(".ne", "");
         const railroad = file
