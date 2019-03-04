@@ -8,3 +8,13 @@ image:https://codecov.io/gh/CodeLenny/bike-workout-dsl/branch/master/graph/badge
 A powerful DSL for creating bike workouts that can be compiled to ERG and other workout formats.
 Files written in {name} should be easy to read,
 while being concise.
+
+== Status
+
+{name} is in a pre-beta state.  This means that there are still rough edges,
+and syntax may be tweaked without warning.
+
+Once {name} is in beta, the language will be stable and conform to semantic versioning,
+so minor versions will be backwards compatible.
+
+link:https://github.com/CodeLenny/bike-workout-dsl/milestone/1[Issues blocking v0.1.0]
