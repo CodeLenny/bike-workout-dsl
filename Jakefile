@@ -58,9 +58,17 @@ rule(
     },
     { async: true },
     function() {
-        jake.exec(`node_modules/.bin/nearley-railroad ${this.source} > ${this.name}`, function() {
-            complete();
-        });
+        const source = this.source;
+        const dest = this.name;
+        return fs
+            .ensureDir("build/railroad/")
+            .then(() => {
+                return new Promise((resolve, reject) => {
+                    jake.exec(`node_modules/.bin/nearley-railroad ${source} > ${dest}`, function() {
+                        resolve();
+                    });
+                })
+            });
     },
 );
 
@@ -95,10 +103,13 @@ grammarTemplateFiles.include(
     "docs/src/template/grammar.blade",
 );
 
+directory("docs/out/grammar/");
+
 file("docs/out/grammar/index.html", [
     "docs/src/grammar/index.blade",
+    "docs/out/grammar/",
     ...grammarTemplateFiles.toArray(),
-    ], { async: true },
+    ],
     () => bladeCompilation("docs/src/grammar/index.blade", "docs/out/grammar/index.html"));
 
 file("docs/out/index.html", [

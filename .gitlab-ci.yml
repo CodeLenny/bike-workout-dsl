@@ -1,5 +1,7 @@
 stages:
   - test
+  - build
+  - publish
 
 unit-test:
   stage: test
@@ -11,3 +13,40 @@ unit-test:
   after_script:
     - npm install codecov
     - ./node_modules/.bin/codecov
+
+build-docs:
+  stage: test
+  image: node:8
+  before_script:
+    - npm install
+  script:
+    - node_modules/.bin/jake docs --trace
+  artifacts:
+    when: always
+    paths:
+      - docs/out/
+    expire_in: 1 week
+
+publish-docs-devel:
+  stage: publish
+  image: node:8
+  except:
+    - master
+  dependencies:
+    - build-docs
+  before_script:
+    - npm install
+  script:
+    - node_modules/.bin/surge docs/out $CI_COMMIT_REF_SLUG-bike-workout-dsl.surge.sh 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
+
+publish-docs-prod:
+  stage: publish
+  image: node:8
+  only:
+    - master
+  dependencies:
+    - build-docs
+  before_script:
+    - npm install
+  script:
+    - node_modules/.bin/surge docs/out "dsl.structured.fit" 2>&1 | sed "s/$SURGE_LOGIN/$PUBLIC_SURGE_USERNAME/g"
