@@ -3,7 +3,7 @@ import * as PlanGrammar from "./grammar/Plan";
 import Plan, { PlanOptions } from "./Model/Plan";
 import File from "./Model/File";
 
-export class BikeWorkoutDSL {
+export default class BikeWorkoutDSL {
 
     private readonly options: PlanOptions;
     private readonly source: string;
