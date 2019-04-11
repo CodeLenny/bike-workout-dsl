@@ -17,8 +17,9 @@ package:
   image: node:8
   before_script:
     - npm install
-  script:
+    - ./node_modules/.bin/jake test
     - ./node_modules/.bin/tsc
+  script:
     - npm pack
   artifacts:
     when: on_success
