@@ -24,6 +24,58 @@ while being concise.
   @9:00 "Finish strong!"
 ----
 
+== Installation and Usage
+
+=== Pre-Requisites
+
+You must have Node.js and NPM installed on your computer.
+
+=== For Programmatic Usage
+
+If you want to use {name} from TypeScript or JavaScript, install `powergful` via NPM:
+
+.Programmatic Installation
+[source,sh]
+----
+npm install --save powergful
+----
+
+Then you can import {name} into your application:
+
+.TypeScript Import
+[source,typescript]
+----
+import BikeWorkoutDSL from "powergful";
+----
+
+.JavaScript Require
+[source,js]
+----
+const BikeWorkoutDSL = require("powergful");
+----
+
+=== For Command Line Usage
+
+If you just want to run {name} on the command line, you can install {name} globally on your computer, or install locally.
+
+.Global Installation
+[source,sh]
+----
+npm install --global powergful
+powergful --help
+powergful convert --outdir $(pwd)/out my-workout.workout
+----
+
+.Local Installation
+[source,sh]
+----
+mkdir workouts
+cd workouts
+npm install powergful # installs in => .node_modules
+$(npm bin)/powergful --help
+.node_modules/bin/powergful --help
+----
+
 == Status
 
 {name} is in a pre-beta state.  This means that there are still rough edges,

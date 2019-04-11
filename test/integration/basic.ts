@@ -6,7 +6,7 @@ import { BikeWorkoutDSL } from "../../BikeWorkoutDSL";
 test("compiles basic workout", async t => {
     t.plan(5);
     const workout = await fs.readFile(path.resolve(__dirname, "fixtures/basic/basic.workout"), "utf8");
-    const dsl = new BikeWorkoutDSL({ ftp: 120 }, workout);
+    const dsl = new BikeWorkoutDSL({ ftp: 120, outputFilename: "basic" }, workout);
     const ergFiles = dsl.toErg();
     t.is(ergFiles.length, 2);
     t.snapshot(ergFiles[0].getName(), { id: 'basic-erg-0-name' });

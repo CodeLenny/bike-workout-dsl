@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A DSL for creating bike workout plans",
   "main": "index.js",
+  "bin": {
+    "powergful": "bin/powergful.js"
+  },
   "scripts": {
     "test": "jake test && tsc && nyc ava"
   },
@@ -25,6 +28,7 @@
   "homepage": "https://github.com/CodeLenny/bike-workout-dsl#readme",
   "devDependencies": {
     "@types/cheerio": "^0.22.10",
+    "@types/commander": "^2.12.2",
     "@types/fs-extra": "^5.0.4",
     "@types/nearley": "^2.11.0",
     "@types/node": "^10.12.18",
@@ -43,6 +47,8 @@
     "typescript": "^3.2.4"
   },
   "dependencies": {
+    "child-process-promise": "^2.2.1",
+    "commander": "^2.19.0",
     "fs-extra": "^7.0.1",
     "moo": "^0.5.0",
     "nearley": "^2.16.0",
