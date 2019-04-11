@@ -3,6 +3,7 @@
         "target": "es5",
         "lib": [ "es2016" ],
         "module": "commonjs",
+        "declaration": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
