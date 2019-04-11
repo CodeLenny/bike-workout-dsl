@@ -1,0 +1,13 @@
+.nyc_output/
+.vscode/
+build/
+coverage/
+docs/
+grammar/
+test/
+.editorconfig
+Jakefile
+tsconfig.json
+*.ts
+!*.d.ts
+*.js.map

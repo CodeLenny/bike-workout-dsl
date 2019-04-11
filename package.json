@@ -2,7 +2,8 @@
   "name": "bike-workout-dsl",
   "version": "0.0.0",
   "description": "A DSL for creating bike workout plans",
-  "main": "index.js",
+  "main": "BikeWorkoutDSL.js",
+  "types": "BikeWorkoutDSL.d.ts",
   "scripts": {
     "test": "jake test && tsc && nyc ava"
   },
