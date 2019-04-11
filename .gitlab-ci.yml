@@ -1,5 +1,6 @@
 stages:
   - test
+  - publish
 
 unit-test:
   stage: test
@@ -11,3 +12,17 @@ unit-test:
   after_script:
     - npm install codecov
     - ./node_modules/.bin/codecov
+
+package:
+  stage: test
+  image: node:8
+  before_script:
+    - npm install
+  script:
+    - ./node_modules/.bin/tsc
+    - npm pack
+  artifacts:
+    when: success
+    paths:
+      - bike-workout-dsl*.tgz
+    expire_in: 2 weeks
