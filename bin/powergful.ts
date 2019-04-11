@@ -13,14 +13,17 @@ cli.option("--ftp <ftp>", "Your FTP measurement.");
 cli
     .command("lint <input>")
     .description("Parse and verify a PowERGful file, without compiling it.")
-    .action(function(input, options) {
+    .action(async function(input, options) {
+        const workoutFile = await fs.readFile(input, "utf8");
         const parser = new BikeWorkoutDSL(
             {
                 ftp: options.ftp,
                 outputFilename: path.basename(input, path.extname(input)),
             },
-            input,
+            workoutFile,
         );
+        console.log(`Found ${parser.getPlan().getWorkoutCount()} workouts.`);
+        console.log("0 Errors, 0 Warnings");
     });
 
 cli
