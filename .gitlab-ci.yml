@@ -1,6 +1,5 @@
 stages:
   - test
-  - publish
 
 unit-test:
   stage: test
@@ -22,7 +21,7 @@ package:
     - ./node_modules/.bin/tsc
     - npm pack
   artifacts:
-    when: success
+    when: on_success
     paths:
       - bike-workout-dsl*.tgz
     expire_in: 2 weeks
