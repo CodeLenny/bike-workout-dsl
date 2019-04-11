@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A DSL for creating bike workout plans",
   "main": "index.js",
+  "bin": {
+    "powergful": "bin/powergful.js"
+  },
   "scripts": {
     "test": "jake test && tsc && nyc ava"
   },
