@@ -4,6 +4,7 @@ import VariableScope from "./VariableScope";
 import Container from "./Container";
 
 export interface PlanOptions {
+    outputFilename: string;
     ftp?: number;
 }
 
@@ -19,8 +20,12 @@ export default class Plan implements Container {
             if(!Array.isArray(plan)) {
                 throw new Error("Plan must be an array.");
             }
-            this.workouts = plan.map(workout => new Workout(this, workout));
+            this.workouts = plan.map((workout, index) => new Workout(index, this, workout));
         }
+    }
+
+    public getOutputFilename(): string {
+        return this.options.outputFilename;
     }
 
     public getFTP(): number {
@@ -29,6 +34,10 @@ export default class Plan implements Container {
         } else {
             return 0;
         }
+    }
+
+    public getWorkoutCount(): number {
+        return this.workouts.length;
     }
 
     public getVariables(): VariableScope {

@@ -11,6 +11,11 @@ export default class Workout implements Container {
     private readonly plan: Plan;
 
     /**
+     * The index of this workout.  0 = first workout, 1 = second, etc.
+     */
+    private readonly workoutIndex: number;
+
+    /**
      * All entries that will turn into actions, in the order that they were defined.
      */
     private readonly entries: ActiveEntry[];
@@ -19,7 +24,8 @@ export default class Workout implements Container {
 
     private readonly variables: VariableScope;
 
-    constructor(plan: Plan, workout) {
+    constructor(index: number, plan: Plan, workout) {
+        this.workoutIndex = index;
         this.plan = plan;
         this.entries = [];
         this.activities = [];
@@ -52,7 +58,10 @@ export default class Workout implements Container {
     public getFileName(): string {
         // TODO: Check for format
         // TODO: Enstantiate format (e.g. allow "$YYYY-$MM-$DD_Workout_1")
-        return "";
+        if(this.plan.getWorkoutCount() === 1) {
+            return this.plan.getOutputFilename();
+        }
+        return this.plan.getOutputFilename() + "-" + (this.workoutIndex + 1);
     }
 
     public getFTP(): number {
