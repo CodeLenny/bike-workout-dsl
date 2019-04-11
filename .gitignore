@@ -7,4 +7,6 @@ docs/out/grammar/
 node_modules/
 *.js
 *.js.map
+*.d.ts
+bike-workout-dsl-*.tgz
 !lexer.js

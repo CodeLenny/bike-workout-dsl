@@ -1,0 +1,14 @@
+.nyc_output/
+.vscode/
+build/
+coverage/
+docs/
+grammar/
+test/
+.editorconfig
+Jakefile
+README.adoc
+tsconfig.json
+*.ts
+!*.d.ts
+*.js.map

@@ -11,3 +11,18 @@ unit-test:
   after_script:
     - npm install codecov
     - ./node_modules/.bin/codecov
+
+package:
+  stage: test
+  image: node:8
+  before_script:
+    - npm install
+    - ./node_modules/.bin/jake test
+    - ./node_modules/.bin/tsc
+  script:
+    - npm pack
+  artifacts:
+    when: on_success
+    paths:
+      - bike-workout-dsl*.tgz
+    expire_in: 2 weeks

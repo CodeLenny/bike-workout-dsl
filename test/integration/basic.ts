@@ -1,7 +1,7 @@
 import test from "ava";
 import * as path from "path";
 import * as fs from "fs-extra";
-import { BikeWorkoutDSL } from "../../BikeWorkoutDSL";
+import BikeWorkoutDSL from "../../BikeWorkoutDSL";
 
 test("compiles basic workout", async t => {
     t.plan(5);
