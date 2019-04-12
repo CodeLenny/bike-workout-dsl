@@ -25,7 +25,7 @@ build-typedoc-docfx:
     expire_in: 5 days
   before_script:
     - npm install
-    - jake test
+    - $(npm bin)/jake test
   script:
     - $(npm bin)/typedoc BikeWorkoutDSL.ts Model/*.ts --json docs/typedoc.json
     - $(npm bin)/type2docfx docs/typedoc.json docs/api
