@@ -1,0 +1,17 @@
+"Warm up" 5m at 75% FTP / 60% FTHR
+  @0m "5 minute warmup!"
+> "Get your legs spinning with a 5 minute warm up."
+
+"Work" 10m at 100% FTP / 100% FTHR
+  @0m "10 minutes of 100% FTP to get going!"
+  @1m "Make sure you're in a good cadence."
+  @9:00 "Finish strong!"
+
+"Hard work" 10m at 150% FTP / 120% FTHR
+  @0m "You're going to need to push hard for 10 minutes."
+  @5m "Half-way through!"
+  @7m30s "2.5 minutes until cool-down!"
+  @9m "Final minute, stay strong!"
+  @0:09:30 "30 seconds left!"
+
+"Cool down" 5m at 60% FTP / 50% FTHR
