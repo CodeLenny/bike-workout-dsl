@@ -1,0 +1,41 @@
+{
+    "metadata": [],
+    "build": {
+        "content": [
+            {
+                "files": [
+                    "code/**",
+                    "tutorial/**/*.md",
+                    "tutorial/**/*.yml",
+                    "grammar/**/*.md",
+                    "grammar/**/*.yml",
+                    "api/**/*.yml",
+                    "api/**/*.md",
+                    "toc.yml",
+                    "*.md"
+                ],
+                "exclude": [
+                    "out/**"
+                ]
+            }
+        ],
+        "resource": [
+            {
+                "files": [
+                    "css/**/*.css",
+                    "images/**"
+                ]
+            }
+        ],
+        "globalMetadata": {
+            "_appTitle": "powERGful Documentation",
+            "_enableSearch": true
+        },
+        "template": [ "default" ],
+        "markdownEngineName": "dfm",
+        "dest": "out",
+        "xref": [
+            "xrefmap.yml"
+        ]
+    }
+}

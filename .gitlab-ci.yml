@@ -1,5 +1,7 @@
 stages:
   - test
+  - build
+  - publish
 
 unit-test:
   stage: test
@@ -11,3 +13,34 @@ unit-test:
   after_script:
     - npm install codecov
     - ./node_modules/.bin/codecov
+
+build-typedoc-docfx:
+  stage: test
+  image: node:9
+  artifacts:
+    name: "$CI_JOB_NAME-docfx"
+    paths:
+      - docs/typedoc.json
+      - docs/api/
+      - node_modules/milligram/dist/milligram.min.css
+    expire_in: 5 days
+  before_script:
+    - npm install
+    - $(npm bin)/jake test
+  script:
+    - $(npm bin)/typedoc BikeWorkoutDSL.ts Model/*.ts --json docs/typedoc.json
+    - $(npm bin)/type2docfx docs/typedoc.json docs/api
+
+docfx-build:
+  stage: build
+  image: tsgkadot/docker-docfx:latest
+  dependencies:
+    - build-typedoc-docfx
+  artifacts:
+    name: "$CI_JOB_NAME-docs"
+    paths:
+      - docs/out/
+    expire_in: 2 weeks
+  script:
+    - cd docs/
+    - docfx build

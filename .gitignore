@@ -1,9 +1,8 @@
 .nyc_output/
 build/
 coverage/
-docs/out/index.html
-docs/out/css/site.css
-docs/out/grammar/
+docs/out/
+docs/typedoc.json
 node_modules/
 *.js
 *.js.map
