@@ -26,7 +26,7 @@ build-typedoc-docfx:
   before_script:
     - npm install
   script:
-    - $(npm bin)/typedoc src/index.ts --json docs/typedoc.json
+    - $(npm bin)/typedoc BikeWorkoutDSL.ts Model/*.ts --json docs/typedoc.json
     - $(npm bin)/type2docfx docs/typedoc.json docs/api
 
 docfx-build:
