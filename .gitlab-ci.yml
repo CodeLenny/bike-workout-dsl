@@ -33,7 +33,7 @@ docfx-build:
   stage: build
   image: tsgkadot/docker-docfx:latest
   dependencies:
-    - "$CI_JOB_NAME-docfx"
+    - build-typedoc-docfx
   artifacts:
     name: "$CI_JOB_NAME-docs"
     paths:
