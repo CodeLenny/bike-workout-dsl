@@ -1,5 +1,7 @@
 stages:
   - test
+  - build
+  - publish
 
 unit-test:
   stage: test
@@ -13,7 +15,7 @@ unit-test:
     - ./node_modules/.bin/codecov
 
 build-typedoc-docfx:
-  stage: unit-test
+  stage: test
   image: node:9
   artifacts:
     name: "$CI_JOB_NAME-docfx"
